@@ -6,8 +6,8 @@
             Jadwal Periksa
         </h2>
 
-        <a href="{{ route('jadwal-periksa.create') }}" 
-           class="btn bg-[#2d4499] hover:bg-[#1e2d6b] text-white border-none rounded-lg px-5">
+        <a href="{{ route('jadwal-periksa.create') }}" class="btn bg-[#2d4499] hover:bg-[#1e2d6b] 
+                  text-white border-none rounded-lg px-5">
             <i class="fas fa-plus"></i>
             Tambah Jadwal Periksa
         </a>
@@ -22,7 +22,7 @@
     @endif
 
     {{-- Card --}}
-    <div class="card bg-base-100 shadow-md rounded-2xl border border-slate-200">
+    <div class="card bg-base-100 shadow-md rounded-2 border">
         <div class="card-body p-0">
 
             <div class="overflow-x-auto">
@@ -31,22 +31,21 @@
                     {{-- Head --}}
                     <thead class="bg-slate-100 text-slate-500 text-xs uppercase tracking-wider">
                         <tr>
-                            <th class="px-6 py-4">NO</th>
+                            <th class="px-6 py-4">ID</th>
                             <th class="px-6 py-4">Hari</th>
                             <th class="px-6 py-4">Jam Mulai</th>
                             <th class="px-6 py-4">Jam Selesai</th>
-                            <th class="px-6 py-4">Status</th>
                             <th class="px-6 py-4 text-right">Aksi</th>
                         </tr>
                     </thead>
 
                     {{-- Body --}}
                     <tbody>
-                        @forelse ($jadwalPeriksas as $index => $jadwalPeriksa)
+                        @forelse ($jadwalPeriksas as $jadwalPeriksa)
                         <tr class="hover:bg-slate-50 transition">
 
-                            <td class="px-6 py-4 text-slate-500 font-medium">
-                                {{ $index + 1 }}
+                            <td class="px-6 py-4 text-slate-500">
+                                {{ $jadwalPeriksa->id }}
                             </td>
 
                             <td class="px-6 py-4 font-semibold text-slate-800">
@@ -61,18 +60,12 @@
                                 {{ \Carbon\Carbon::parse($jadwalPeriksa->jam_selesai)->format('H:i') }}
                             </td>
 
-                            <td class="px-6 py-4">
-                                <span class="px-3 py-1 rounded-full text-xs font-semibold {{ ($jadwalPeriksa->status ?? 'aktif') == 'aktif' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-600' }}">
-                                    {{ ucfirst($jadwalPeriksa->status ?? 'aktif') }}
-                                </span>
-                            </td>
-
                             <td class="px-6 py-4 text-right">
                                 <div class="flex justify-end gap-2">
 
                                     {{-- Edit --}}
-                                    <a href="{{ route('jadwal-periksa.edit', $jadwalPeriksa->id) }}" 
-                                       class="btn btn-sm bg-amber-500 hover:bg-amber-600 text-white border-none rounded-lg px-4">
+                                    <a href="{{ route('jadwal-periksa.edit', $jadwalPeriksa->id) }}" class="btn btn-sm bg-amber-500 hover:bg-amber-600 
+                                                  text-white border-none rounded-lg px-4">
                                         <i class="fas fa-pen-to-square"></i>
                                         Edit
                                     </a>
@@ -82,8 +75,8 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
-                                                onclick="return confirm('Yakin ingin menghapus Data Jadwal Periksa ini?')" 
-                                                class="btn btn-sm bg-red-500 hover:bg-red-600 text-white border-none rounded-lg px-4">
+                                            onclick="return confirm('Yakin ingin menghapus Data Jadwal Periksa ini?')" class="btn btn-sm bg-red-500 hover:bg-red-600 
+                                                       text-white border-none rounded-lg px-4">
                                             <i class="fas fa-trash"></i>
                                             Hapus
                                         </button>
@@ -94,15 +87,15 @@
 
                         </tr>
                         @empty
-                        <tr>
-                            <td colspan="6" class="text-center py-14 text-slate-400">
-                                <div class="flex flex-col items-center justify-center gap-2">
-                                    <i class="fas fa-inbox text-3xl"></i>
-                                    <span>Belum ada Jadwal Periksa</span>
-                                </div>
-                            </td>
-                        </tr>
-                        @endforelse
+<tr>
+    <td colspan="5" class="text-center py-14 text-slate-400">
+        <div class="flex flex-col items-center justify-center gap-2">
+            <i class="fas fa-inbox text-3xl"></i>
+            <span>Belum ada Jadwal Periksa</span>
+        </div>
+    </td>
+</tr>
+@endforelse
                     </tbody>
 
                 </table>
