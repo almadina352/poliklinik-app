@@ -13,7 +13,7 @@
 
     {{-- Card --}}
     <div class="card bg-base-100 shadow-md rounded-2xl border border-slate-200">
-        <div class="card-body p-7">
+        <div class="card-body p-8">
 
             <form action="{{ route('jadwal-periksa.store') }}" method="POST">
                 @csrf
@@ -26,10 +26,14 @@
                         </span>
                     </label>
 
-                    <select name="hari" class="select select-bordered w-full rounded-lg text-sm @error('hari') select-error @enderror" required>
-                        <option value="">-- Pilih Hari --</option>
-                        @foreach(['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'] as $hari)
-                            <option value="{{ $hari }}" {{ old('hari') == $hari ? 'selected' : '' }}>{{ $hari }}</option>
+                    <select name="hari" id="hari"
+                        class="select select-bordered border-2 px-4 w-full rounded-lg text-sm @error('hari') select-error @enderror"
+                        required>
+                        <option value="">Pilih Hari</option>
+                        @foreach (['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu', 'Minggu'] as $day)
+                            <option value="{{ $day }}" {{ old('hari') == $day ? 'selected' : '' }}>
+                                {{ $day }}
+                            </option>
                         @endforeach
                     </select>
 
@@ -48,9 +52,10 @@
                         </span>
                     </label>
 
-                    <input type="time" name="jam_mulai" value="{{ old('jam_mulai') }}"
-                        class="input input-bordered w-full rounded-lg text-sm @error('jam_mulai') input-error @enderror" required>
-                    
+                    <input type="time" name="jam_mulai" id="jam_mulai" value="{{ old('jam_mulai') }}"
+                        class="input input-bordered border-2 px-4 w-full rounded-lg text-sm @error('jam_mulai') input-error @enderror"
+                        required>
+
                     @error('jam_mulai')
                     <label class="label pt-1">
                         <span class="label-text-alt text-red-500">{{ $message }}</span>
@@ -59,21 +64,23 @@
                 </div>
 
                 {{-- Jam Selesai --}}
-                <div class="form-control mb-5">
+                <div class="form-control mb-6">
                     <label class="label pb-1">
                         <span class="text-sm font-semibold text-gray-700">
                             Jam Selesai <span class="text-red-500">*</span>
                         </span>
                     </label>
-                    <input type="time" name="jam_selesai" value="{{ old('jam_selesai') }}"
-                        class="input input-bordered w-full rounded-lg text-sm @error('jam_selesai') input-error @enderror" required>
+
+                    <input type="time" name="jam_selesai" id="jam_selesai" value="{{ old('jam_selesai') }}"
+                        class="input input-bordered border-2 px-4 w-full rounded-lg text-sm @error('jam_selesai') input-error @enderror"
+                        required>
+
                     @error('jam_selesai')
                     <label class="label pt-1">
                         <span class="label-text-alt text-red-500">{{ $message }}</span>
                     </label>
                     @enderror
                 </div>
-            
 
                 {{-- Buttons --}}
                 <div class="flex gap-3">
@@ -84,7 +91,7 @@
                     </button>
 
                     <a href="{{ route('jadwal-periksa.index') }}"
-                        class="flex items-center gap-2 px-6 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-500 rounded-lg text-sm font-semibold transition">
+                        class="btn btn-ghost bg-slate-100 hover:bg-slate-200 text-slate-500 rounded-lg px-6">
                         Batal
                     </a>
                 </div>
