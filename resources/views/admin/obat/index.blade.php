@@ -6,6 +6,11 @@
             Data Obat
         </h2>
 
+        <div class="flex items-center gap-2">
+        <a href="{{ route('export.obat') }}" class="inline-flex items-center gap-2 px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-semibold rounded-xl transition">
+                <i class="fas fa-file-excel"></i>
+                Export Excel
+            </a>
         <a href="{{ route('obat.create') }}" class="inline-flex items-center gap-2 px-5 py-2.5 
                   bg-primary hover:bg-primary/90 
                   text-white text-sm font-semibold 
@@ -13,6 +18,7 @@
             <i class="fas fa-plus text-xs"></i>
             Tambah Obat
         </a>
+        </div>
     </div>
 
     {{-- Card --}}
@@ -27,6 +33,7 @@
                         <tr>
                             <th class="px-6 py-4">Nama Obat</th>
                             <th class="px-6 py-4">Kemasan</th>
+                            <th class="px-6 py-4">Stok</th>
                             <th class="px-6 py-4">Harga</th>
                             <th class="px-6 py-4 text-right">Aksi</th>
                         </tr>
@@ -46,6 +53,10 @@
                                              rounded-full bg-green-100 text-green-600">
                                     {{ $obat->kemasan ?? '-' }}
                                 </span>
+                            </td>
+
+                            <td class="px-6 py-4 text-slate-700">
+                                {{ number_format($obat->stok, 0, ',', '.') }}
                             </td>
 
                             <td class="px-6 py-4 font-semibold text-slate-800">

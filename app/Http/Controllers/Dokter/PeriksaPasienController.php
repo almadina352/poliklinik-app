@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Dokter;
 
+use App\Events\AntrianDiperbarui;
 use App\Http\Controllers\Controller;
 use App\Models\DaftarPoli;
 use App\Models\DetailPeriksa;
@@ -35,10 +36,18 @@ class PeriksaPasienController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'id_daftar_poli' => 'required|exists:daftar_poli,id',
             'obat_json' => 'required',
             'catatan' => 'nullable|string',
             'biaya_periksa' => 'required|integer',
         ]);
+
+        // Cegah pemeriksaan ganda untuk pendaftaran yang sama
+        if (Periksa::where('id_daftar_poli', $request->id_daftar_poli)->exists()) {
+            return redirect()
+                ->route('periksa-pasien.index')
+                ->with('error', 'Pasien ini sudah diperiksa.');
+        }
 
         $obatIds = json_decode($request->obat_json, true);
 
@@ -57,6 +66,8 @@ class PeriksaPasienController extends Controller
                 ]);
             }
         }
+
+        AntrianDiperbarui::kirim();
 
         return redirect()
             ->route('periksa-pasien.index')

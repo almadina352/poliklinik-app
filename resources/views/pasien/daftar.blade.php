@@ -25,9 +25,17 @@
                 </div>
             @endif
 
+            @if ($antrianAktif)
+                <div class="mb-4 rounded-lg bg-amber-100 px-4 py-3 text-sm text-amber-800">
+                    Anda masih memiliki antrian aktif di
+                    <strong>{{ $antrianAktif->jadwalPeriksa->dokter->poli->nama_poli ?? '-' }}</strong>
+                    (nomor {{ $antrianAktif->no_antrian }}). Anda dapat mendaftar kembali setelah pemeriksaan selesai.
+                </div>
+            @endif
+
             <form action="{{ route('pasien.daftar.submit') }}" method="POST" class="space-y-4">
+                <fieldset @disabled($antrianAktif) class="space-y-4">
                 @csrf
-                <input type="hidden" name="id_pasien" value="{{ $user->id }}">
 
                 {{-- Nomor Rekam Medis --}}
                 <div>
@@ -81,6 +89,7 @@
                         Daftar Poli
                     </button>
                 </div>
+                </fieldset>
             </form>
         </div>
     </div>

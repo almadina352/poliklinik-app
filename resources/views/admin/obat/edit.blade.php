@@ -28,7 +28,7 @@
                         <label class="block text-sm font-semibold text-slate-700 mb-1">
                             Nama Obat <span class="text-red-500">*</span>
                         </label>
-                        <input type="text" name="nama_obat" value="{{ old('nama_obat') }}"
+                        <input type="text" name="nama_obat" value="{{ old('nama_obat', $obat->nama_obat) }}"
                             placeholder="Masukkan nama obat..." class="w-full px-4 py-2 border-2 rounded-lg p-2
                                       focus:border-primary focus:outline-none
                                       @error('nama_obat') border-red-500 @enderror" required>
@@ -42,7 +42,7 @@
                         <label class="block text-sm font-semibold text-slate-700 mb-1">
                             Kemasan
                         </label>
-                        <input type="text" name="kemasan" value="{{ old('kemasan') }}"
+                        <input type="text" name="kemasan" value="{{ old('kemasan', $obat->kemasan) }}"
                             placeholder="Contoh: Strip, Botol, Tube..." class="w-full px-4 py-2 border-2 rounded-lg p-2
                                       focus:border-primary focus:outline-none
                                       @error('kemasan') border-red-500 @enderror">
@@ -51,6 +51,19 @@
                         @enderror
                     </div>
 
+                </div>
+
+                {{-- Stok --}}
+                <div class="mb-6">
+                    <label class="block text-sm font-semibold text-slate-700 mb-1">
+                        Stok <span class="text-red-500">*</span>
+                    </label>
+                    <input type="number" name="stok" value="{{ old('stok', $obat->stok) }}" placeholder="0" min="0" step="1"
+                        class="w-full px-4 py-2 border-2 rounded-lg focus:border-primary focus:outline-none
+                               @error('stok') border-red-500 @enderror" required>
+                    @error('stok')
+                    <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 {{-- Harga --}}
@@ -64,7 +77,7 @@
                         <span class="text-slate-500 text-sm font-semibold mr-2">
                             Rp
                         </span>
-                        <input type="number" name="harga" value="{{ old('harga') }}" placeholder="0" min="0" step="1"
+                        <input type="number" name="harga" value="{{ old('harga', $obat->harga) }}" placeholder="0" min="0" step="1"
                             class="w-full focus:outline-none
                                       @error('harga') border-red-500 @enderror" required>
                     </div>
